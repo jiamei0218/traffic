@@ -20,20 +20,21 @@ import cv2 as cv
 
 class Video(QThread):
     #定义信号（传递的数据类型）
-    sing_show = pyqtSignal(int,int,int,bytes)
-    def __init__(self):
+    sing_show = pyqtSignal(int,int,int,bytes,int)
+    def __init__(self,th_id,dev_id):
         super(Video,self).__init__()
+        self.dev_id=dev_id
+        self.th_id=th_id
         #获取摄像头 第0个摄像头
         #self.dev = cv.VideoCapture(0,cv.CAP_DSHOW)
 
         #获取本地资源
-        self.dev = cv.VideoCapture("data\\t.mp4",cv.CAP_DSHOW)
-        self.dev.open("data\\t.mp4")
+        self.dev = cv.VideoCapture(self.dev_id,cv.CAP_DSHOW)
+        self.dev.open(self.dev_id)
 
     #重写run方法
     def run(self):
         # 循环逐帧捕获数据
-
         while True:
             # 一帧数据
             status, frame = self.dev.read()
@@ -42,10 +43,10 @@ class Video(QThread):
             h,w,c = frame.shape
             deta = frame.tobytes()
             #发送信号（真实数据）触发发送信号
-            self.sing_show.emit(h,w,c,deta)
+            self.sing_show.emit(h,w,c,deta,self.th_id)
             #等若干时间 0.1秒
             # usleep(微妙)  1s=1000000微妙
-            QThread.usleep(100000)
+            QThread.usleep(50000)
 
 
 

@@ -16,8 +16,8 @@ class TrafficFrame(QDialog):
         self.th2 = Video(2,"data\\t.mp4")
         #信号指定接受者
         #接受者指定槽函数（数据处理函数）
-        self.th1.sing_show.connect(self.show_video)
-        self.th2.sing_show.connect(self.show_video)
+        self.th1.sign_show.connect(self.show_video)
+        self.th2.sign_show.connect(self.show_video)
         #启动线程
         self.th1.start()
         self.th2.start()

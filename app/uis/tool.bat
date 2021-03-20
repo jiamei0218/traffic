@@ -1,1 +1,1 @@
-@pyuic5 traffic.ui -o trafficui.py
+@pyuic5 login.ui -o loginui.py

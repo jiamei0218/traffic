@@ -20,7 +20,7 @@ import cv2 as cv
 
 class Video(QThread):
     #定义信号（传递的数据类型）
-    sing_show = pyqtSignal(int,int,int,bytes,int)
+    sign_show = pyqtSignal(int,int,int,bytes,int)
     def __init__(self,th_id,dev_id):
         super(Video,self).__init__()
         self.dev_id=dev_id
@@ -43,7 +43,7 @@ class Video(QThread):
             h,w,c = frame.shape
             deta = frame.tobytes()
             #发送信号（真实数据）触发发送信号
-            self.sing_show.emit(h,w,c,deta,self.th_id)
+            self.sign_show.emit(h,w,c,deta,self.th_id)
             #等若干时间 0.1秒
             # usleep(微妙)  1s=1000000微妙
             QThread.usleep(50000)
